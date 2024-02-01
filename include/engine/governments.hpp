@@ -1,11 +1,13 @@
 #ifndef GOVERNMENTS_HPP
 #define GOVERNMENTS_HPP
 
-typedef struct governmentTypes{
+typedef struct ideologyGradient{
     
-    float democracy;
-    float monarchy;
+    float liberal;
+    float authoritarian;
+    float left;
+    float right;
 
-} governmentTypes;
+} ideologyGradient;
 
 #endif

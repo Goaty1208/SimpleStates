@@ -18,7 +18,7 @@ class state{
         stateID ID = 0;
 
         humanID leaderID;
-        governmentTypes governmentType = {0, 0};
+        ideologyGradient ideology = {0, 0, 0, 0};
 
         int population;
         uint16_t age;
