@@ -1,5 +1,8 @@
+#include "engine/perlin.hpp"
 #include "raylib.h"
+
 #include <cstdint>
+#include <vector>
 
 #ifndef TILES_HPP
 #define TILES_HPP
@@ -7,33 +10,23 @@
 typedef uint8_t tileType;
 typedef uint16_t depth;
 
-typedef struct tile{
+typedef struct tile {
 
     Vector2 position = {1, 1};
     depth depth = 0;
     tileType type = 0;
 
-    Rectangle frameRec = { 16.0f, 0.0f, 16, 16 };
+    Rectangle frameRec = {16.0f, 0.0f, 16, 16};
 
 } tile;
 
-//TODO: relocate
+// Just a tile vector
+typedef std::vector<std::vector<tile>> tileMap;
 
-void drawTilesDebug(Texture2D texture, tile tile){
+tileMap generateTileMap(int size);
 
-    for (int i = 0; i < 16; i++){
+// TODO: relocate
 
-        for (int j = 0; j < 16; j++){
-
-            DrawTextureRec(texture, tile.frameRec, {tile.position.x * i * 16, tile.position.y * j * 16}, WHITE);
-
-        }
-               
-
-    }
-    
-
-}
-
+void drawTilesDebug(Texture2D texture, tileMap tile, int size, Camera2D camera);
 
 #endif
