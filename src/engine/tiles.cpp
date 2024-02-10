@@ -4,7 +4,7 @@ tileMap generateTileMap(int size) {
 
     float offsetX = static_cast<float>(rand()) / RAND_MAX * 1000.0f;
     float offsetY = static_cast<float>(rand()) / RAND_MAX * 1000.0f;
-    float scale = static_cast<float>(rand()) / RAND_MAX * 80.0f;
+    float scale = 64;
 
     tileMap map;
 
@@ -15,9 +15,38 @@ tileMap generateTileMap(int size) {
 
             float perlinValue = perlinGeneration(offsetX + i / scale, offsetY + j / scale);
             map[i][j].position = {(float)i, (float)j};
-            map[i][j].type = (perlinValue < 0.5f) ? 0 : 1;
 
-            map[i][j].frameRec = {16.0f * map[i][j].type, 0.0f, 16, 16};
+            if (perlinValue <= 0.35f) {
+
+                map[i][j].type = 3;
+
+            } else if (perlinValue <= 0.5f && perlinValue <= 0.51f) {
+
+                map[i][j].type = 2;
+
+            } else if (perlinValue <= 0.51f && perlinValue <= 0.52f) {
+
+                map[i][j].type = 1;
+
+            } else {
+
+                map[i][j].type = 0;
+            }
+
+            switch (map[i][j].type) {
+            case 0:
+                map[i][j].frameRec = WaterRec;
+                break;
+            case 1:
+                map[i][j].frameRec = SandRec;
+                break;
+            case 2:
+                map[i][j].frameRec = GrassRec;
+                break;
+            case 3:
+                map[i][j].frameRec = MountainRec;
+                break;
+            }
         }
     }
 
@@ -33,9 +62,9 @@ void drawTilesDebug(Texture2D texture, tileMap tile, int size, Camera2D camera) 
 
         for (int j = 0; j < size; j++) {
 
-            if (tile[i][j].position.x * 16 + 16 >= screenZero.x && tile[i][j].position.x * 16 <= worldSize.x && tile[i][j].position.y * 16 + 16 >= screenZero.y && tile[i][j].position.y * 16 <= worldSize.y) {
+            if (tile[i][j].position.x * TileSize + TileSize >= screenZero.x && tile[i][j].position.x * TileSize <= worldSize.x && tile[i][j].position.y * TileSize + TileSize >= screenZero.y && tile[i][j].position.y * TileSize <= worldSize.y) {
 
-                DrawTextureRec(texture, tile[i][j].frameRec, {tile[i][j].position.x * 16, tile[i][j].position.y * 16}, WHITE);
+                DrawTextureRec(texture, tile[i][j].frameRec, {tile[i][j].position.x * TileSize, tile[i][j].position.y * TileSize}, WHITE);
             }
         }
     }

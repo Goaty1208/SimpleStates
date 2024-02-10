@@ -1,3 +1,4 @@
+#include "engine/human.hpp"
 #include "engine/tiles.hpp"
 #include "raylib.h"
 #include "raymath.h"
